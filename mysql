@@ -1,0 +1,44 @@
+create database Db_tsubota3
+use db_tsubota3
+
+CREATE TABLE pedido (
+    id_ped int PRIMARY KEY,
+    data_ped date,
+    qtde_ped int,
+    valor_ped numeric
+);
+
+CREATE TABLE nota (
+    id_not int PRIMARY KEY,
+    data_not date,
+    qtde_not int,
+    valor_not numeric
+);
+
+CREATE TABLE gera (
+	id int PRIMARY KEY,
+	fk_pedido_id_ped int FOREIGN KEY REFERENCES nota(id_not),
+    fk_nota_id_not int FOREIGN KEY REFERENCES pedido(id_ped)
+	
+);
+
+select * from pedido
+select * from nota
+select * from gera
+
+insert into pedido values (13, '20210821', 5, 1300.00) 
+insert into pedido values (14, '20210423', 6, 2032.00)
+insert into pedido values (15, '20210513', 7, 435.00)
+
+insert into nota values (1, '20210625', 2, 250.00)
+insert into nota values (2, '20210512', 3, 850.00)
+insert into nota values (3, '20210504', 4, 550.00)
+
+
+--select que faz relacionamento das tabelas
+select * from pedido p
+inner join gera g
+on p.id_ped = g.fk_pedido_id_ped
+
+inner join nota n
+on n.id_not = g.fk_nota_id_not
